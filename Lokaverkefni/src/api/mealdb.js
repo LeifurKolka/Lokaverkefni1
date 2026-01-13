@@ -19,3 +19,15 @@ export async function getMealById(mealId) {
   const data = await requestJson(`${BASE_URL}/lookup.php?i=${mealId}`);
   return data.meals?.[0] ?? null;
 }
+
+export async function getCategories() {
+  const data = await requestJson(`${BASE_URL}/categories.php`);
+  return data.categories ?? [];
+}
+
+export async function getMealsByCategory(category) {
+  const data = await requestJson(
+    `${BASE_URL}/filter.php?c=${encodeURIComponent(category)}`
+  );
+  return data.meals ?? [];
+}
