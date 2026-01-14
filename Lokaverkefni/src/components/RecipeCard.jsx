@@ -27,7 +27,7 @@ export default function RecipeCard({ meal }) {
       <div style={{ padding: 12 }}>
         <h3 style={{ margin: "0 0 6px 0" }}>{meal.strMeal}</h3>
         <p style={{ margin: 0, color: "#555", fontSize: 14 }}>
-         {"Click to view recipe"}
+         {"Smelltu til að sjá uppskrift"}
         </p>
       </div>
     </Link>

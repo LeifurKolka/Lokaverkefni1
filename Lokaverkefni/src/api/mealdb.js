@@ -4,7 +4,7 @@ async function requestJson(url) {
   const response = await fetch(url);
 
   if (!response.ok) {
-    throw new Error(`Request failed (${response.status})`);
+    throw new Error(`Beiðni mistókst (${response.status})`);
   }
 
   return response.json();
@@ -28,6 +28,16 @@ export async function getCategories() {
 export async function getMealsByCategory(category) {
   const data = await requestJson(
     `${BASE_URL}/filter.php?c=${encodeURIComponent(category)}`
+  );
+  return data.meals ?? [];
+}
+
+export async function searchMeals(query) {
+  const trimmed = query.trim();
+  if (!trimmed) return [];
+
+  const data = await requestJson(
+    `${BASE_URL}/search.php?s=${encodeURIComponent(trimmed)}`
   );
   return data.meals ?? [];
 }

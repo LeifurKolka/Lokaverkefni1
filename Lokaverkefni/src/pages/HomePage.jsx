@@ -29,7 +29,7 @@ export default function HomePage() {
   return (
     <div>
       <h1>Heim</h1>
-      <p>"Featured" uppskriftir (letter “a”)</p>
+      <p>"Featured" uppskriftir (Byrja á "A")</p>
 
       {isLoading && <p>Hleður uppskriftum…</p>}
 

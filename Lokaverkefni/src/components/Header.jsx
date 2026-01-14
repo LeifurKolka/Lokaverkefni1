@@ -21,7 +21,7 @@ export default function Header() {
           alignItems: "center",
         }}
       >
-        <div style={{ fontWeight: 800 }}>🍲 Recipe Site</div>
+        <div style={{ fontWeight: 800 }}>🍲 Leifs uppskriftir</div>
 
         <nav style={{ display: "flex", gap: 8 }}>
           <NavLink to="/" style={linkStyle}>
