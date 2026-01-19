@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { getMealsByFirstLetter } from "../api/mealdb";
 import RecipeCard from "../components/RecipeCard";
+import { containerStyle, buttonStyle } from "../components/ui";
+
 
 export default function HomePage() {
   const [meals, setMeals] = useState([]);
@@ -34,9 +36,9 @@ export default function HomePage() {
       {isLoading && <p>Hleður uppskriftum…</p>}
 
       {!isLoading && errorMessage && (
-        <div style={{ border: "1px solid #f2c2c2", padding: 12, borderRadius: 12 }}>
+        <div style={{ ...containerStyle, marginTop: 16, borderColor: "#f2c2c2" }}>
           <p style={{ marginTop: 0 }}>Gat ekki sótt uppskriftir: {errorMessage}</p>
-          <button onClick={loadFeatured}>Retry</button>
+          <button onClick={loadFeatured} style={buttonStyle}>Reyna aftur</button>
         </div>
       )}
 
@@ -48,7 +50,7 @@ export default function HomePage() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
             gap: 16,
             marginTop: 16,
           }}

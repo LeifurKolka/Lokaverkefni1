@@ -1,6 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 import { getCategories, getMealsByCategory, searchMeals } from "../api/mealdb";
 import RecipeCard from "../components/RecipeCard";
+import {
+  containerStyle,
+  inputStyle,
+  buttonStyle,
+  buttonSecondaryStyle,
+  buttonDisabledStyle,
+} from "../components/ui";
+
 
 const PAGE_SIZE = 10;
 
@@ -123,11 +131,12 @@ export default function RecipesPage() {
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
           placeholder="Leitaðu af uppskriftum (t.d. pasta, chicken)…"
-          style={{ padding: 10, borderRadius: 10, border: "1px solid #ddd", minWidth: 260 }}
+          style={inputStyle}
         />
-        <button type="submit">Leita</button>
+        <button type="submit" style={buttonStyle}>Leita</button>
+
         {isSearchMode && (
-          <button type="button" onClick={clearSearch}>
+          <button type="button" onClick={clearSearch} style={buttonSecondaryStyle}>
             Hreinsa
           </button>
         )}
@@ -173,9 +182,9 @@ export default function RecipesPage() {
       {isLoading && <p style={{ marginTop: 16 }}>Hleður…</p>}
 
       {!isLoading && errorMessage && (
-        <div style={{ border: "1px solid #f2c2c2", padding: 12, borderRadius: 12, marginTop: 16 }}>
+        <div style={{ ...containerStyle, marginTop: 16, borderColor: "#f2c2c2" }}>
           <p style={{ marginTop: 0 }}>Gat ekki hlaðið uppskriftum: {errorMessage}</p>
-          <button onClick={retry}>Reyna aftur</button>
+          <button onClick={retry} style={buttonStyle}>Reyna aftur</button>
         </div>
       )}
 
@@ -186,7 +195,7 @@ export default function RecipesPage() {
               ? "Engar uppskriftir fundust, reyndu aftur."
               : "Engar uppskriftir fundust fyrir þennan flokk."}
           </p>
-          {isSearchMode && <button onClick={clearSearch}>Hreinsa leit</button>}
+          {isSearchMode && <button onClick={clearSearch} style={buttonSecondaryStyle}>Hreinsa leit</button>}
         </div>
       )}
 
@@ -195,7 +204,7 @@ export default function RecipesPage() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
               gap: 16,
               marginTop: 16,
             }}
@@ -213,19 +222,28 @@ export default function RecipesPage() {
           </div>
 
           <div style={{ display: "flex", gap: 12, alignItems: "center", marginTop: 20 }}>
-            <button onClick={goPrev} disabled={page === 1}>
+            <button
+             onClick={goPrev}
+              disabled={page === 1}
+              style={{ ...buttonSecondaryStyle, ...(page === 1 ? buttonDisabledStyle : {}) }}>
               Til baka
             </button>
             <span>
               Síða {page} / {totalPages}
             </span>
-            <button onClick={goNext} disabled={page === totalPages}>
-              Næsta
-            </button>
-          </div>
+            <button
+              onClick={goNext}
+              disabled={page === totalPages}
+              style={{
+              ...buttonSecondaryStyle,
+              ...(page === totalPages ? buttonDisabledStyle : {}),
+          }}
+          >
+            Næsta
+          </button>
+        </div>
         </>
       )}
     </div>
   );
 }
-

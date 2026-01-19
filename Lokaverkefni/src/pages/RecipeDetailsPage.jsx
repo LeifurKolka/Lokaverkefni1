@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getMealById, getMealsByCategory } from "../api/mealdb";
 import RecipeCard from "../components/RecipeCard";
+import { containerStyle, buttonStyle, buttonSecondaryStyle } from "../components/ui";
+
 
 function extractIngredients(meal) {
   const items = [];
@@ -68,13 +70,16 @@ export default function RecipeDetailsPage() {
   }
 
   if (errorMessage) {
-    return (
-      <div style={{ border: "1px solid #f2c2c2", padding: 12, borderRadius: 12 }}>
-        <p style={{ marginTop: 0 }}>Gat ekki náð í uppskrift: {errorMessage}</p>
-        <button onClick={() => loadDetails(id)}>Reyndu aftur</button>
-      </div>
-    );
-  }
+  return (
+    <div style={{ ...containerStyle, borderColor: "#f2c2c2" }}>
+      <p style={{ marginTop: 0 }}>Gat ekki hlaðið uppskrift: {errorMessage}</p>
+      <button onClick={() => loadDetails(id)} style={buttonStyle}>
+        Reyna aftur
+      </button>
+    </div>
+  );
+}
+
 
   if (!meal) {
     return (
@@ -91,7 +96,7 @@ export default function RecipeDetailsPage() {
   return (
     <div>
       <Link to="/recipes" style={{ textDecoration: "none" }}>
-        ← Til baka í uppskriftir
+       <span style={buttonSecondaryStyle}>← Til baka í uppskriftir</span> 
       </Link>
 
       <h1 style={{ marginTop: 12 }}>{meal.strMeal}</h1>
@@ -103,7 +108,7 @@ export default function RecipeDetailsPage() {
       />
 
       <div style={{ marginTop: 16, display: "grid", gap: 16, gridTemplateColumns: "1fr" }}>
-        <section style={{ border: "1px solid #eee", borderRadius: 12, padding: 12 }}>
+        <section style={containerStyle}>
           <h2 style={{ marginTop: 0 }}>Hráefni</h2>
           {ingredients.length === 0 ? (
             <p>Engin hráefni listuð.</p>
@@ -116,13 +121,13 @@ export default function RecipeDetailsPage() {
           )}
         </section>
 
-        <section style={{ border: "1px solid #eee", borderRadius: 12, padding: 12 }}>
+        <section style={containerStyle}>
           <h2 style={{ marginTop: 0 }}>Leiðbeiningar</h2>
           <p style={{ whiteSpace: "pre-line" }}>{meal.strInstructions}</p>
         </section>
 
         {meal.strYoutube && (
-          <section style={{ border: "1px solid #eee", borderRadius: 12, padding: 12 }}>
+          <section style={containerStyle}>
             <h2 style={{ marginTop: 0 }}>Myndband</h2>
             <a href={meal.strYoutube} target="_blank" rel="noreferrer">
               horfðu á Youtube

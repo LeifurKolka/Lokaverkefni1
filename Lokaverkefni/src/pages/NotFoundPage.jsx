@@ -4,8 +4,8 @@ export default function NotFoundPage() {
   return (
     <div>
       <h1>404</h1>
-      <p>Sorry, this page doesn’t exist.</p>
-      <Link to="/">Go home</Link>
+      <p>Þessi síða er ekki til.</p>
+      <Link to="/">Heim</Link>
     </div>
   );
 }
